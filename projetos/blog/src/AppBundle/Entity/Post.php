@@ -1,13 +1,20 @@
 <?php
 
-namespace AppBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @ORM\Entity
+ * @Route("/{id}", name="admin_post_show")
  */
+public function showAction(Post $post)
+{
+    $deleteForm = $this->createDeleteForm($post);
+
+    return $this->render('admin/post/show.html.twig', array(
+        'post'        => $post,
+        'delete_form' => $deleteForm->createView(),
+    ));
+}
 class Post
 {
     const NUM_ITEMS = 10;
